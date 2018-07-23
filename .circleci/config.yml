@@ -29,19 +29,21 @@ jobs:
     <<: *container_config
     steps:
       - *restore_cache
-      - run: npm install
       - run: node -v
       - run: npm -v
+      - run: npm install
+      - run: npm ls
       - *save_cache
       - persist_to_workspace:
           root: ~/ant-design
           paths:
-            - ./*
+            - node_modules
 
   lint:
     <<: *container_config
     steps:
       - *attach_workspace
+      - run: ls
       - run: npm run lint
 
   test_dist:
